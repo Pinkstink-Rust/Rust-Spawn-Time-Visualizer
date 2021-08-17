@@ -1,0 +1,44 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+  - master
+
+pool:
+  vmImage: "windows-2019"
+
+steps:
+  - task: UseNode@1
+    inputs:
+      version: "12.16.1"
+
+  - task: CmdLine@2
+    inputs:
+      script: "npm install"
+
+  - task: CmdLine@2
+    inputs:
+      script: "npm run build"
+
+  - task: CopyFiles@2
+    inputs:
+      contents: "dist/**"
+      targetFolder: $(Build.ArtifactStagingDirectory)
+
+  - task: CopyFiles@2
+    inputs:
+      contents: "Dockerfile"
+      targetFolder: $(Build.ArtifactStagingDirectory)
+
+  - task: CopyFiles@2
+    inputs:
+      contents: "hosting/**"
+      targetFolder: $(Build.ArtifactStagingDirectory)
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: $(Build.ArtifactStagingDirectory)
+      ArtifactName: "drop"
+      publishLocation: "Container"
