@@ -1,3 +1,5 @@
+const isDev = process.env.NODE_ENV === 'development';
+
 module.exports = {
     purge: {
         content: [
@@ -8,5 +10,5 @@ module.exports = {
         ]
     },
     darkMode: 'class', // or 'media' or 'class'
-    mode: 'jit'
+    mode: isDev ? undefined : 'jit'
 }

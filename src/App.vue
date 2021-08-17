@@ -1,62 +1,24 @@
 <template lang="pug">
-#app.w-full.h-screen.container.mx-auto
-  h1.text-2xl.my-4 Rust Spawn Time Visualizer
+#app.w-full.h-screen.container.mx-auto.py-4
+  h1.text-3xl.mb-4 Rust Spawn Time Visualizer
 
-  .flex.mt-2.p-2.rounded.border
-    .flex.flex-1.mx-2
-      h4.flex-1.text-lg.self-center Respawn Min
-      input.border.rounded.py-2.px-3.text-gray-700(type="number", v-model="respawnDelayMin")
-    .flex.flex-1.mx-2
-      h4.flex-1.text-lg.self-center Respawn Max
-      input.border.rounded.py-2.px-3.text-gray-700(type="number", v-model="respawnDelayMax")
+  h1.text-lg.mb-2 Spawn Groups
+  <spawn-groups />
 
-  .mt-2.p-2.rounded.border
-    .flex
-      h4.flex-1.text-lg.self-center Current Players
-      input.border.rounded.py-2.px-3.text-gray-700(type="number", v-model="currentPlayers")
-    input.mt-8.w-full(type="range", v-model="currentPlayers", min="1", max="500")
-
-  .flex.mt-2.p-2.rounded.border
-    .flex-1.mx-2
-      .flex
-        h4.flex-1.text-lg.self-center Player Base
-        input.border.rounded.py-2.px-3.text-gray-700(type="number", v-model="playerBase")
-      input.mt-8.w-full(type="range", v-model="playerBase", min="1", max="1000")
-    .flex-1.mx-2
-      .flex
-        h4.flex-1.text-lg.self-center Player Scale
-        input.border.rounded.py-2.px-3.text-gray-700(type="number", v-model="playerScale")
-      input.mt-8.w-full(type="range", v-model="playerScale", min="1", max="10", step="0.01")
-
-  .flex.mt-8.p-2.rounded.border
-    .flex-1.text-center
-      h4.text-lg Player Excess
-      span {{ comp_PlayerExcess.toFixed(2) }}
-    .flex-1.text-center
-      h4.text-lg Player Scale
-      span {{ comp_PlayerScale.toFixed(2) }}
-    .flex-1.text-center
-      h4.text-lg Spawn Delta
-      span {{ formatTime(comp_SpawnDelta) }}
-    .flex-1.text-center
-      h4.text-lg Spawn Variance
-      span {{ formatTime(comp_SpawnVariance) }}
-
-  .flex.mt-8.p-2.rounded.border
-    .flex-1.text-center
-      h4.text-lg Min Spawn Time
-      span {{ formatTime(comp_SpawnTimeMin) }}
-    .flex-1.text-center
-      h4.text-lg Max Spawn Time
-      span {{ formatTime(comp_SpawnTimeMax) }}
-    .flex-1.text-center
-      h4.text-lg Random Spawn Time
-      span {{ formatTime(comp_SpawnTimeRandom) }}
+  //- hr.my-8
+  
+  //- h1.text-lg.mb-2 Population Groups
+  //- p.muted Work in progress...
 </template>
 
 <script>
+import SpawnGroups from "./components/SpawnGroups.vue";
+
 export default {
   name: "App",
+  components: {
+    SpawnGroups,
+  },
   data() {
     return {
       respawnDelayMin: 1800,
